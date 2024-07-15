@@ -2,8 +2,6 @@
 
 As soon as you can get into the sanctuary, you will need to do a pre-worship setup. This is around 30 minutes, usually from 11:30 am to 12:00 pm. Sometimes, the BYG service can take longer, requiring you to need speed.
 
----
-
 ## Gather Equipment
 
 The first thing you need to do is grab all the equipment, or sometimes find them around the sanctuary. Depending on who praise team is today, the equipment you need is different.
@@ -36,14 +34,10 @@ These can change and you should be aware of which singer is using which micropho
 
 The next equipment you should look for are the monitors. Specifically, the IEMs, or In-Ear Monitors. Peter Song, a member of the praise team, requires IEM #1 to hook up to his in-ears. 
 
----
-
 ## Switch Scene Profile
 
 When you start working with the mixer, you will need to first switch the scene profile to the "Covenant" scene.
 
-1. Find and press the scene button.
-2. Navigate to the "Covenant" scene
-3. Press recall (**Make sure not to press store**)
+Find and press the `scene` button. Then, navigate to the "`Covenant`" scene. Make sure you press `recall` (**Make sure not to press store**)
 
 The mixer fades should move to their set positions and you are ready to start pre-worship setup.
