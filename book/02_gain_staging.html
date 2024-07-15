@@ -1,0 +1,272 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Gain Staging - Covenant Mixing Guide</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="00_introduction.html">Introduction</a></li><li class="chapter-item expanded affix "><li class="part-title">Worship Setup</li><li class="chapter-item expanded "><a href="01_before_worship_setup.html"><strong aria-hidden="true">1.</strong> Before Worship Setup</a></li><li class="chapter-item expanded "><a href="02_gain_staging.html" class="active"><strong aria-hidden="true">2.</strong> Gain Staging</a></li><li class="chapter-item expanded affix "><li class="part-title">Keywords</li><li class="chapter-item expanded "><a href="keywords/balance.html"><strong aria-hidden="true">3.</strong> Balance</a></li><li class="chapter-item expanded "><a href="keywords/custom_layer.html"><strong aria-hidden="true">4.</strong> Custom Layer</a></li><li class="chapter-item expanded "><a href="keywords/gain.html"><strong aria-hidden="true">5.</strong> Gain</a></li><li class="chapter-item expanded "><a href="keywords/layers.html"><strong aria-hidden="true">6.</strong> Layers</a></li><li class="chapter-item expanded "><a href="keywords/monitors.html"><strong aria-hidden="true">7.</strong> Monitors</a></li><li class="chapter-item expanded "><a href="keywords/scenes.html"><strong aria-hidden="true">8.</strong> Scenes</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Covenant Mixing Guide</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="gain-staging"><a class="header" href="#gain-staging">Gain Staging</a></h1>
+<p>Gain staging refers to the making sure that the gain of each input is at a good volume without noise or feedback.</p>
+<h2 id="setup-pafl"><a class="header" href="#setup-pafl">Setup PAFL</a></h2>
+<p>The first thing you need to do when starting your pre-worship setup is make sure your PAFL audio is at the correct volume. This setting does not save to scenes, so you need to make sure it is set correctly before starting.</p>
+<p>The knob to adjust the PAFL volume is in the top right of the mixer. This area should be outlined in blue paint and the required knob is the middle black knob directly under the headphone jack.</p>
+<p>You can adjust the volume by setting COM1, or the first computer, to play audio at max volume (on the computer) and setting the fader to 0 dB. You shouldn't need to adjust the gain on the computer as it shouldn't ever change. Adjust your audio until it sounds loud, but not tiring on your ears.</p>
+<p>If you don't want to use the computer to play audio, you can also have the praise team play their instruments. The piano is a good reference for loud audio.</p>
+<h2 id="set-gains"><a class="header" href="#set-gains">Set Gains</a></h2>
+<p>To adjust the gain...</p>
+<ol>
+<li>Press the "Sel" button on the channel you want to edit</li>
+<li>If you don't have this <code>(add this photo)</code> view on the screen, press processing</li>
+<li>Look at the top right of the screen. You should see the red knob.
+<ul>
+<li>If there is no red knob, something is wrong with the routing of the mixer. In other words, someone messed with the mixer and you will need help.</li>
+</ul>
+</li>
+<li>On the strip of the channel you are trying to edit, press the PAFL button, or Pre After Fade Listen.</li>
+<li>Listen to the audio coming through and turn it up until you hear feedback or noise. Turn it back down slightly until the unwanted noise disappears.</li>
+<li>Now, you can adjust the fader to get the sound where you want it</li>
+<li>You should adjust all the faders so that the sound on all of them are balanced, or around the same volume.</li>
+</ol>
+<p>Your singers should be a bit louder than the instruments, but not loud enough that they stick out.</p>
+<hr />
+<h2 id="setup-the-monitors"><a class="header" href="#setup-the-monitors">Setup the monitors</a></h2>
+<p>Each monitor around the stage needs a different mix. These can't be preset because there are different people around the stage, requiring a different mix. To modify the monitor mixes, press the respective monitor buttons along the bottom right of the mixer. Each monitor is labeled, from MON 1, 2, 3, and 4 or IEM 1 and 2.</p>
+<p>The monitors follow a left to right layout on the stage respective to the numbers. Monitor 1 is the monitor next to the piano. Monitor 2 is between the piano and the center stage. Monitor 3 is between the center stage and the drums. Monitor 4 will shift around and is usually not plugged in. You can just leave monitor 4 muted.</p>
+<p>Often, you will only need to adjust monitors 1, 2, and IEM 1.</p>
+<p>As for how to adjust the monitors, that is often up to the singer's preference. However, the standard is to have the singer's voice at 0 dB and their instrument around -15 or -20 dB. Their voice should be the highlight and their instrument secondary. Next, the voices and instruments of the other singers should be included, however at around the same volume as the singer's own instrument.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="01_before_worship_setup.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="keywords/balance.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="01_before_worship_setup.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="keywords/balance.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>
